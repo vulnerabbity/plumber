@@ -66,7 +66,8 @@
     ]
   },
   "devDependencies": {
-    "@capacitor/cli": "3.6.0"
+    "@capacitor/cli": "3.6.0",
+    "sass": "^1.53.0"
   },
   "description": "Ionic react youtube (piped) client"
 }
