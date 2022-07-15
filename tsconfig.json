@@ -18,7 +18,15 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+
+    "paths": {
+      "@lib/*": ["./src/lib/*"],
+      "@src/*": ["./src/*"],
+      "@components/*": ["./src/components/*"],
+      "@pages/*": ["./src/pages/*"],
+      "@store/*": ["./src/store/*"],
+    }
   },
   "include": [
     "src"
