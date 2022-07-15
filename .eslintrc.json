@@ -38,7 +38,7 @@
     "@typescript-eslint/no-unused-vars": "off",
     "@typescript-eslint/no-empty-function": "off",
     "@typescript-eslint/no-inferrable-types": "off",
-    "react/react-in-jsx-scope": "off",
+    "react/react-in-jsx-scope": "off"
   },
 
   "settings": {
