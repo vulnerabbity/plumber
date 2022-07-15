@@ -2,6 +2,7 @@
   "name": "plumber",
   "version": "0.0.1",
   "private": true,
+  "type": "module",
   "dependencies": {
     "@capacitor/app": "1.1.1",
     "@capacitor/core": "3.6.0",
@@ -19,6 +20,7 @@
     "@types/react-dom": "^16.9.10",
     "@types/react-router": "^5.1.11",
     "@types/react-router-dom": "^5.1.7",
+    "eslint-plugin-react": "^7.30.1",
     "ionicons": "^5.4.0",
     "piped-api": "../piped-api",
     "react": "^17.0.1",
@@ -49,12 +51,6 @@
     "test": "react-scripts test --transformIgnorePatterns 'node_modules/(?!(@ionic/react|@ionic/react-router|@ionic/core|@stencil/core|ionicons)/)'",
     "eject": "react-scripts eject"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
   "browserslist": {
     "production": [
       ">0.2%",
@@ -69,6 +65,7 @@
   },
   "devDependencies": {
     "@capacitor/cli": "3.6.0",
+    "eslint": "^8.19.0",
     "sass": "^1.53.0"
   },
   "description": "Ionic react youtube (piped) client"
