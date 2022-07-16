@@ -27,4 +27,6 @@ export const cssConstants = {
     medium: 12,
     large: 18,
   },
+
+  baseFontSize: 18,
 } as const
