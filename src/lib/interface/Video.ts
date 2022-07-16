@@ -9,15 +9,19 @@ export interface IVideo {
 
   thumbnailUrl: string
 
-  authorName: string
+  channelName: string
 
   uploadedIsoSeconds: number
 
-  authorAvatarUrl: string | null
+  channelAvatarUrl: string | null
+
+  channelUrl: string
 
   channelId: string
 
   videoId: string
 
-  isAuthorVerified: boolean
+  videoUrl: string
+
+  isChannelVerified: boolean
 }

@@ -16,17 +16,21 @@ export class PipedApiVideoAdapter implements IVideo {
 
   thumbnailUrl: string
 
-  authorName: string
+  channelName: string
 
   uploadedIsoSeconds: number
 
-  authorAvatarUrl: string | null
+  channelAvatarUrl: string | null
+
+  channelUrl: string
 
   channelId: string
 
   videoId: string
 
-  isAuthorVerified: boolean
+  videoUrl: string
+
+  isChannelVerified: boolean
 
   constructor(pipedVideo: PipedVideo) {
     const {
@@ -49,12 +53,25 @@ export class PipedApiVideoAdapter implements IVideo {
     this.views = views
     this.durationInSeconds = duration
     this.thumbnailUrl = thumbnail
-    this.authorName = uploaderName
+    this.channelName = uploaderName
     this.uploadedIsoSeconds = uploaded
-    this.authorAvatarUrl = uploaderAvatar
+    this.channelAvatarUrl = uploaderAvatar
+    this.channelUrl = uploaderUrl
+    this.videoUrl = url
 
     this.channelId = ApiExtractor.extractChannelIdFromUploaderUrl(uploaderUrl)
     this.videoId = ApiExtractor.extractVideoIdFromVideoUrl(url)
-    this.isAuthorVerified = uploaderVerified
+    this.isChannelVerified = uploaderVerified
   }
+}
+
+export function adaptPipedVideos(pipedVideos: PipedVideo[]): IVideo[] {
+  const adaptedVideos: IVideo[] = []
+
+  pipedVideos.forEach(pipedVideo => {
+    const adapted = new PipedApiVideoAdapter(pipedVideo)
+    adaptedVideos.push(adapted)
+  })
+
+  return adaptedVideos
 }
