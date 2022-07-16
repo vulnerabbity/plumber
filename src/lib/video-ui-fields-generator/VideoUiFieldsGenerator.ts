@@ -1,15 +1,41 @@
 export interface VideoUiFieldsGeneratorProps {
   views: number
+  durationInSeconds: number
 }
 
 export class VideoUiFieldsGenerator {
   generate(props: VideoUiFieldsGeneratorProps) {
     return {
-      fancyViews: this.generateViewsText(props),
+      fancyViews: this.generateFancyViewsText(props),
+      fancyTime: this.generateFancyTimeText(props),
     }
   }
 
-  private generateViewsText({ views }: VideoUiFieldsGeneratorProps): string {
+  // generates time like 22:11:23, 02:22
+  private generateFancyTimeText({
+    durationInSeconds,
+  }: VideoUiFieldsGeneratorProps) {
+    const date = new Date(durationInSeconds * 1000)
+
+    const seconds = date.getUTCSeconds()
+    const minutes = date.getUTCMinutes()
+    const hours = date.getUTCHours()
+
+    let result = ""
+    if (hours) {
+      result += `${this.padNumber(hours)}:`
+    }
+
+    result += `${this.padNumber(minutes)}:`
+
+    result += `${this.padNumber(seconds)}`
+
+    return result
+  }
+
+  private generateFancyViewsText({
+    views,
+  }: VideoUiFieldsGeneratorProps): string {
     const THOUSAND = 1_000
     const MILLION = 1_000_000
     const BILLION = 1_000_000_000
@@ -33,6 +59,16 @@ export class VideoUiFieldsGenerator {
     }
 
     return String(views)
+  }
+
+  private padNumber(number: number, size = 2) {
+    let stringNumber = number.toString()
+
+    while (stringNumber.length < size) {
+      stringNumber = "0" + stringNumber
+    }
+
+    return stringNumber
   }
 
   private trimNumber(number: number) {
