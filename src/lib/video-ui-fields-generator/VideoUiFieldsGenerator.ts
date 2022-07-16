@@ -1,5 +1,15 @@
+export interface VideoUiFieldsGeneratorProps {
+  views: number
+}
+
 export class VideoUiFieldsGenerator {
-  generateViewsText({ views }: { views: number }): string {
+  generate(props: VideoUiFieldsGeneratorProps) {
+    return {
+      fancyViews: this.generateViewsText(props),
+    }
+  }
+
+  private generateViewsText({ views }: VideoUiFieldsGeneratorProps): string {
     const THOUSAND = 1_000
     const MILLION = 1_000_000
     const BILLION = 1_000_000_000

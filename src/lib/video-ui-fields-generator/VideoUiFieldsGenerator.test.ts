@@ -9,25 +9,25 @@ describe(VideoUiFieldsGenerator.name, () => {
     const million = 1_000_000
     const billion = 1_000_000_000
 
-    const textForBillions = VideoUiFieldsGeneratorInstance.generateViewsText({
+    const billionsResult = VideoUiFieldsGeneratorInstance.generate({
       views: billion * 2.226,
     })
-    expect(textForBillions).toBe("2.23B")
+    expect(billionsResult.fancyViews).toBe("2.23B")
 
-    const textForMillions = VideoUiFieldsGeneratorInstance.generateViewsText({
+    const millionsResult = VideoUiFieldsGeneratorInstance.generate({
       views: million * 2.226,
     })
-    expect(textForMillions).toBe("2.23M")
+    expect(millionsResult.fancyViews).toBe("2.23M")
 
-    const textForThousand = VideoUiFieldsGeneratorInstance.generateViewsText({
+    const thousandsResult = VideoUiFieldsGeneratorInstance.generate({
       views: thousand * 2.226,
     })
-    expect(textForThousand).toBe("2.23K")
+    expect(thousandsResult.fancyViews).toBe("2.23K")
 
-    const textForLessThanThousand =
-      VideoUiFieldsGeneratorInstance.generateViewsText({
-        views: 444,
-      })
-    expect(textForLessThanThousand).toBe("444")
+    const lessThanThousandsResult = VideoUiFieldsGeneratorInstance.generate({
+      views: 444,
+    })
+
+    expect(lessThanThousandsResult.fancyViews).toBe("444")
   })
 })
