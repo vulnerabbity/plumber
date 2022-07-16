@@ -4,10 +4,11 @@ import {
   IonPage,
   IonTitle,
   IonToolbar,
-} from "@ionic/react";
-import "./Home.scss";
+} from "@ionic/react"
 
-const Home: React.FC = () => {
+import "./Home.scss"
+
+export function Home() {
   return (
     <IonPage>
       <IonHeader>
@@ -17,7 +18,5 @@ const Home: React.FC = () => {
       </IonHeader>
       <IonContent fullscreen></IonContent>
     </IonPage>
-  );
-};
-
-export default Home;
+  )
+}
