@@ -10,7 +10,7 @@ import { ImageFallbackComponent } from "../image-fallback/image-fallback"
 const youtubeImageAspectRatio = 1.78
 
 const { height: imageHeight, width: imageWidth } = defineAspectRatio({
-  height: 190,
+  height: 160,
   aspectRatio: youtubeImageAspectRatio,
 })
 
@@ -24,8 +24,8 @@ export function VideoItemVerticalComponent(
   const { video } = props
   const styles = useStyles()
 
-  const prettyViews = VideoUiFieldsGeneratorInstance.generateViewsText({
-    views: video.views,
+  const { fancyViews, fancyTime } = VideoUiFieldsGeneratorInstance.generate({
+    ...video,
   })
 
   return (
@@ -38,15 +38,22 @@ export function VideoItemVerticalComponent(
         />
       </div>
       <div className={styles.textContainer}>
-        <p>{video.title}</p>
-        <p>{prettyViews}</p>
-        <p>{}</p>
+        <p className={styles.title}>{video.title}</p>
+        <p>{video.channelName}</p>
+        <div className={styles.spaceBetween}>
+          <span>{fancyViews}</span>
+          <span>{fancyTime}</span>
+        </div>
       </div>
     </div>
   )
 }
 
 const useStyles = createUseStyles({
+  title: {
+    fontSize: cssConstants.baseFontSize * 1.2,
+    fontWeight: "bold",
+  },
   videoItem: {
     width: imageWidth,
   },
@@ -56,8 +63,13 @@ const useStyles = createUseStyles({
   },
   textContainer: {
     padding: `0 ${cssConstants.padding.small}rem`,
+    // all child
     "& > *": {
       marginTop: "10rem",
     },
+  },
+  spaceBetween: {
+    display: "flex",
+    justifyContent: "space-between",
   },
 })
