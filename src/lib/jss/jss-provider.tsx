@@ -1,7 +1,8 @@
-import { create as createJss, JssStyle } from "jss"
+import { create as createJss } from "jss"
 import defaultUnit from "jss-plugin-default-unit"
 import { ReactNode } from "react"
 import { JssProvider as _LibJssProvider } from "react-jss"
+import camelCase from "jss-plugin-camel-case"
 
 // JssProvider has bug in types so its not recognizable as provider
 const LibJssProvider: any = _LibJssProvider
@@ -14,8 +15,7 @@ export function AppJssProvider({ children }: AppJssProviderProps) {
   const jss = createJss()
   const unitsConfig = getJssDefaultUnitConfig("rem")
 
-  jss.use(defaultUnit(unitsConfig))
-
+  jss.use(defaultUnit(unitsConfig), camelCase())
   return (
     <>
       <LibJssProvider jss={jss}>{children}</LibJssProvider>
