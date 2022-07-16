@@ -1,0 +1,22 @@
+@import "./normalize.scss";
+@import "./zero.scss";
+@import "./theme/variables.scss";
+
+html {
+  // make rem equal 1px (16 * 6.25% = 1)
+  font-size: 6.25%;
+}
+
+body {
+  font-size: 18rem;
+}
+
+a,
+button {
+  display: block;
+}
+
+img {
+  display: block;
+  width: 100%;
+}
