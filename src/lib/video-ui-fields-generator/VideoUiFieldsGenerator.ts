@@ -1,4 +1,4 @@
-export class TextGenerator {
+export class VideoUiFieldsGenerator {
   generateViewsText({ views }: { views: number }): string {
     const THOUSAND = 1_000
     const MILLION = 1_000_000
@@ -30,4 +30,4 @@ export class TextGenerator {
   }
 }
 
-export const TextGeneratorInstance = new TextGenerator()
+export const VideoUiFieldsGeneratorInstance = new VideoUiFieldsGenerator()
