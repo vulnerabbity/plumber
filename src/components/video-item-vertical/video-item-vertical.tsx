@@ -26,8 +26,13 @@ export function VideoItemVerticalComponent(
 
   const fancyGenerator = new VideoUiFieldsGenerator()
   const fancyViews = fancyGenerator.generateFancyViews({ views: video.views })
-  const fancyTime = fancyGenerator.generateFancyTime({
+  const fancyDuration = fancyGenerator.generateFancyTime({
     durationInSeconds: video.durationInSeconds,
+  })
+
+  const currentSeconds = new Date().valueOf() / 1000
+  const fancyPassedTime = fancyGenerator.generateFancyPassedTime({
+    secondsSinceEvent: currentSeconds - video.uploadedIsoSeconds,
   })
 
   return (
@@ -38,13 +43,14 @@ export function VideoItemVerticalComponent(
           src={video.thumbnailUrl}
           alt={video.title}
         />
+        <span className={styles.duration}>{fancyDuration}</span>
       </div>
       <div className={styles.textContainer}>
         <p className={styles.title}>{video.title}</p>
         <p>{video.channelName}</p>
         <div className={styles.spaceBetween}>
-          <span>{fancyViews}</span>
-          <span>{fancyTime}</span>
+          <span>{fancyViews} views</span>
+          <span>{fancyPassedTime} ago</span>
         </div>
       </div>
     </div>
@@ -60,8 +66,20 @@ const useStyles = createUseStyles({
     width: imageWidth,
   },
   thumbnail: {
+    position: "relative",
     borderRadius: cssConstants.borderRadius.medium,
     overflow: "hidden",
+  },
+  duration: {
+    position: "absolute",
+    right: cssConstants.padding.small,
+    bottom: cssConstants.padding.small,
+
+    padding: cssConstants.padding.small,
+
+    color: "white",
+    backgroundColor: "rgba(0,0,0, 0.5)",
+    borderRadius: cssConstants.borderRadius.small,
   },
   textContainer: {
     padding: `0 ${cssConstants.padding.small}rem`,
