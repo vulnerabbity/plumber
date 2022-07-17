@@ -3,7 +3,30 @@ import { VideoUiFieldsGenerator } from "./VideoUiFieldsGenerator"
 describe(VideoUiFieldsGenerator.name, () => {
   const generator = new VideoUiFieldsGenerator()
 
-  it("should generate text for views", () => {
+  it("should generate fancy passed time", () => {
+    const MINUTE = 60
+    const HOUR = MINUTE * 60
+    const DAY = HOUR * 24
+    const MONTH = DAY * 30
+    const YEAR = MONTH * 12
+
+    expectTimePassed(30, "30 seconds")
+    expectTimePassed(8 * MINUTE, "8 minutes")
+    expectTimePassed(2.1 * HOUR, "2 hours")
+    expectTimePassed(3.6 * DAY, "3 days")
+    expectTimePassed(2.1 * MONTH, "2 months")
+    expectTimePassed(3.5 * YEAR, "3 years")
+
+    function expectTimePassed(seconds: number, expectedResult: string) {
+      const result = generator.generateFancyPassedTime({
+        secondsSinceEvent: seconds,
+      })
+
+      expect(result).toBe(expectedResult)
+    }
+  })
+
+  it("should generate fancy views", () => {
     const thousand = 1_000
     const million = 1_000_000
     const billion = 1_000_000_000
@@ -30,7 +53,7 @@ describe(VideoUiFieldsGenerator.name, () => {
     expect(lessThanThousandsFancyViews).toBe("444")
   })
 
-  it("should generate time", () => {
+  it("should generate fancy time", () => {
     {
       const seconds = 81_622
       const expectation = "22:40:22"
