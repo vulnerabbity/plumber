@@ -73,7 +73,7 @@ export function VideoItemVerticalComponent(
 
 const useStyles = createUseStyles({
   videoItem: {
-    width: imageWidth,
+    maxWidth: imageWidth,
   },
   title: {
     fontSize: cssConstants.baseFontSize * 1.1,

@@ -1,11 +1,11 @@
-import React from "react"
+import { useEffect, useRef, useState } from "react"
 import { createUseStyles } from "react-jss"
 import { accessRootStore } from "../../store/store"
 
 export interface ImageFallbackComponentProps {
   src?: string
   alt?: string
-  fallbackHeight: number | string
+  fallbackHeight: number
 }
 
 export function ImageFallbackComponent(props: ImageFallbackComponentProps) {
@@ -13,20 +13,44 @@ export function ImageFallbackComponent(props: ImageFallbackComponentProps) {
   const {
     state: { theme },
   } = accessRootStore()
+  const [height, setHeight] = useState(fallbackHeight)
+  const imageRef = useRef<HTMLImageElement>(null)
 
   const styles = useStyles()
 
+  // Placeholder should be same size as image.
+  // When screen is resized they can have different size. For this reason we need sync
+  useEffect(() => {
+    const onResize = syncHeight
+    window.addEventListener("resize", onResize)
+
+    return () => {
+      window.removeEventListener("resize", onResize)
+    }
+  })
+
+  function syncHeight() {
+    const imageHeight = getImageHeight()
+
+    setHeight(imageHeight)
+  }
+
+  function getImageHeight() {
+    return imageRef.current?.height ?? 0
+  }
+
   return (
-    <div
-      className={styles.fallbackImageRoot}
-      style={{ minHeight: fallbackHeight }}
-    >
-      <img className={`${styles.image}`} src={src} alt={alt} />
-      <div
-        className={`${styles.fallbackImage} ${styles.image}`}
-        style={{ backgroundColor: theme.contentColor }}
-        role="none"
-      />
+    <div className={styles.fallbackImageRoot}>
+      <div style={{ height, backgroundColor: theme.contentColor }}>
+        <img
+          src={src}
+          alt={alt}
+          ref={imageRef}
+          onLoad={() => {
+            syncHeight()
+          }}
+        />
+      </div>
     </div>
   )
 }
@@ -35,15 +59,5 @@ const useStyles = createUseStyles({
   fallbackImageRoot: {
     display: "block",
     position: "relative",
-  },
-  image: {
-    position: "absolute",
-    top: 0,
-    left: 0,
-  },
-  fallbackImage: {
-    height: "100%",
-    width: "100%",
-    zIndex: -1,
   },
 })
