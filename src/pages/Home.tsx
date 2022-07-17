@@ -3,8 +3,6 @@ import { Link } from "react-router-dom"
 import { SearchbarComponent } from "../components/searchbar/searchbar"
 import { TrendsComponent } from "../components/trends/trends"
 
-import "./Home.scss"
-
 export function Home() {
   const styles = useStyles()
 
