@@ -65,6 +65,11 @@ export class PipedApiVideoAdapter implements IVideo {
   }
 
   private resolveIsoSeconds(pipedVideo: PipedVideo) {
+    const isStream = pipedVideo.uploaded === -1
+    if (isStream) {
+      return -1
+    }
+
     const uploadedIsoMilliseconds = pipedVideo.uploaded
 
     return Math.floor(uploadedIsoMilliseconds / 1000)
