@@ -43,7 +43,7 @@ export function VideoItemVerticalComponent(
           src={video.thumbnailUrl}
           alt={video.title}
         />
-        <span className={styles.duration}>{fancyDuration}</span>
+        <span className={`${styles.duration} duration`}>{fancyDuration}</span>
       </div>
       <div className={styles.textContainer}>
         <p className={styles.title}>{video.title}</p>
@@ -58,17 +58,24 @@ export function VideoItemVerticalComponent(
 }
 
 const useStyles = createUseStyles({
+  videoItem: {
+    width: imageWidth,
+  },
   title: {
     fontSize: cssConstants.baseFontSize * 1.2,
     fontWeight: "bold",
   },
-  videoItem: {
-    width: imageWidth,
-  },
+
   thumbnail: {
     position: "relative",
     borderRadius: cssConstants.borderRadius.medium,
     overflow: "hidden",
+
+    "&:hover": {
+      "& > .duration": {
+        opacity: 0,
+      },
+    },
   },
   duration: {
     position: "absolute",
@@ -80,6 +87,7 @@ const useStyles = createUseStyles({
     color: "white",
     backgroundColor: "rgba(0,0,0, 0.5)",
     borderRadius: cssConstants.borderRadius.small,
+    transition: cssConstants.transition.fast + "s",
   },
   textContainer: {
     padding: `0 ${cssConstants.padding.small}rem`,
