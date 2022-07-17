@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 import { IVideo } from "../../lib/interface/Video"
 import {
   createUseStyles,
@@ -39,14 +40,16 @@ export function VideoItemVerticalComponent(
 
   return (
     <div className={styles.videoItem}>
-      <div className={styles.thumbnail}>
-        <ImageFallbackComponent
-          fallbackHeight={imageHeight}
-          src={video.thumbnailUrl}
-          alt={video.title}
-        />
-        <span className={`${styles.duration} duration`}>{fancyDuration}</span>
-      </div>
+      <Link to={video.videoUrl}>
+        <div className={styles.thumbnail}>
+          <ImageFallbackComponent
+            fallbackHeight={imageHeight}
+            src={video.thumbnailUrl}
+            alt={video.title}
+          />
+          <span className={`${styles.duration} duration`}>{fancyDuration}</span>
+        </div>
+      </Link>
       <div className={styles.videoInfo}>
         <div className={styles.avatarColumn}>
           <div className={styles.channelAvatar}>

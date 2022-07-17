@@ -20,6 +20,7 @@ import "@ionic/react/css/flex-utils.css"
 import "@ionic/react/css/display.css"
 
 import "./styles/styles.scss"
+import { WatchPage } from "./pages/Watch"
 
 setupIonicReact()
 
@@ -30,6 +31,9 @@ function App() {
         <IonRouterOutlet>
           <Route exact path="/">
             <Home />
+          </Route>
+          <Route exact path="/watch">
+            <WatchPage />
           </Route>
         </IonRouterOutlet>
       </IonReactRouter>
