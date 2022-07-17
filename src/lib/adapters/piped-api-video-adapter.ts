@@ -54,7 +54,7 @@ export class PipedApiVideoAdapter implements IVideo {
     this.durationInSeconds = duration
     this.thumbnailUrl = thumbnail
     this.channelName = uploaderName
-    this.uploadedIsoSeconds = uploaded
+    this.uploadedIsoSeconds = this.resolveIsoSeconds(pipedVideo)
     this.channelAvatarUrl = uploaderAvatar
     this.channelUrl = uploaderUrl
     this.videoUrl = url
@@ -62,6 +62,12 @@ export class PipedApiVideoAdapter implements IVideo {
     this.channelId = ApiExtractor.extractChannelIdFromUploaderUrl(uploaderUrl)
     this.videoId = ApiExtractor.extractVideoIdFromVideoUrl(url)
     this.isChannelVerified = uploaderVerified
+  }
+
+  private resolveIsoSeconds(pipedVideo: PipedVideo) {
+    const uploadedIsoMilliseconds = pipedVideo.uploaded
+
+    return Math.floor(uploadedIsoMilliseconds / 1000)
   }
 }
 
