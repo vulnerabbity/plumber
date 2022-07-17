@@ -14,6 +14,8 @@ const { height: imageHeight, width: imageWidth } = defineAspectRatio({
   aspectRatio: youtubeImageAspectRatio,
 })
 
+const avatarSize = 48
+
 export interface VideoItemVerticalComponentProps {
   video: IVideo
 }
@@ -45,12 +47,24 @@ export function VideoItemVerticalComponent(
         />
         <span className={`${styles.duration} duration`}>{fancyDuration}</span>
       </div>
-      <div className={styles.textContainer}>
-        <p className={styles.title}>{video.title}</p>
-        <p>{video.channelName}</p>
-        <div className={styles.spaceBetween}>
-          <span>{fancyViews} views</span>
-          <span>{fancyPassedTime} ago</span>
+      <div className={styles.videoInfo}>
+        <div className={styles.avatarColumn}>
+          <div className={styles.channelAvatar}>
+            <ImageFallbackComponent
+              src={video.channelAvatarUrl ?? ""}
+              fallbackHeight={avatarSize}
+            ></ImageFallbackComponent>
+          </div>
+        </div>
+        <div className={styles.textContainer}>
+          <p className={styles.title}>{video.title}</p>
+
+          <p className={styles.channelName}>{video.channelName}</p>
+
+          <div className={styles.metaInfo}>
+            <span>{fancyViews} views •</span>
+            <span> {fancyPassedTime} ago</span>
+          </div>
         </div>
       </div>
     </div>
@@ -62,7 +76,7 @@ const useStyles = createUseStyles({
     width: imageWidth,
   },
   title: {
-    fontSize: cssConstants.baseFontSize * 1.2,
+    fontSize: cssConstants.baseFontSize * 1.1,
     fontWeight: "bold",
   },
 
@@ -77,6 +91,18 @@ const useStyles = createUseStyles({
       },
     },
   },
+  channelName: {
+    fontSize: cssConstants.baseFontSize * 1.15,
+  },
+  channelAvatar: {
+    width: avatarSize,
+    display: "inline-block",
+    borderRadius: "50%",
+    overflow: "hidden",
+  },
+  avatarColumn: {
+    paddingRight: cssConstants.padding.small,
+  },
   duration: {
     position: "absolute",
     right: cssConstants.padding.small,
@@ -90,14 +116,17 @@ const useStyles = createUseStyles({
     transition: cssConstants.transition.fast + "s",
   },
   textContainer: {
-    padding: `0 ${cssConstants.padding.small}rem`,
     // all child
     "& > *": {
-      marginTop: "10rem",
+      marginBottom: "10rem",
     },
   },
-  spaceBetween: {
+  videoInfo: {
     display: "flex",
-    justifyContent: "space-between",
+    padding: `0 ${cssConstants.padding.small}rem`,
+    marginTop: cssConstants.padding.small,
+  },
+  metaInfo: {
+    fontSize: cssConstants.baseFontSize * 0.8,
   },
 })
