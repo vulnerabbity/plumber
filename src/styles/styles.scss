@@ -24,3 +24,12 @@ img {
   // hide alt text
   color: transparent;
 }
+
+.app-wrapper {
+  overflow-y: scroll;
+  min-height: 100vh;
+
+  ion-router-outlet {
+    overflow: unset;
+  }
+}

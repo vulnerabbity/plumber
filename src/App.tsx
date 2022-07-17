@@ -25,7 +25,7 @@ setupIonicReact()
 
 function App() {
   return (
-    <IonApp>
+    <IonApp className="app-wrapper">
       <IonReactRouter>
         <IonRouterOutlet>
           <Route exact path="/home">
