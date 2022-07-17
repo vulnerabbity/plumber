@@ -1,41 +1,39 @@
-import { ReactNode } from "react";
-import { createStore } from "redux";
+import { ReactNode } from "react"
+import { createStore } from "redux"
 import {
   Provider as ReduxProvider,
   useDispatch,
   useSelector,
-} from "react-redux";
-import { rootReducer } from "./reducers";
+} from "react-redux"
+import { rootReducer } from "./reducers"
 
 function createRootStore() {
-  return createStore(rootReducer);
+  return createStore(rootReducer)
 }
 
 export function RootStoreProvider({ children }: { children: ReactNode }) {
-  const store = createRootStore();
+  const store = createRootStore()
 
-  return <ReduxProvider store={store}>{children}</ReduxProvider>;
+  return <ReduxProvider store={store}>{children}</ReduxProvider>
 }
 
-export type IRootStore = ReturnType<typeof createRootStore>;
+export type IRootStore = ReturnType<typeof createRootStore>
 
-export type IRootState = ReturnType<IRootStore["getState"]>;
+export type IRootState = ReturnType<IRootStore["getState"]>
 
-export type IRootDespatcher = IRootStore["dispatch"];
+export type IRootDespatcher = IRootStore["dispatch"]
 
 export type IAccessRootStore = {
-  state: IRootState;
-  dispatch: IRootDespatcher;
-};
+  state: IRootState
+  dispatch: IRootDespatcher
+}
 
 export function accessRootStore(): IAccessRootStore {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const state = useSelector((state: IRootState) => state);
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const dispatch = useDispatch();
+  const state = useSelector((state: IRootState) => state)
+  const dispatch = useDispatch()
 
   return {
     state,
     dispatch,
-  };
+  }
 }
