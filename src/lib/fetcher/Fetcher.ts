@@ -12,4 +12,10 @@ export class Fetcher {
 
     return adaptPipedVideos(pipedVideos)
   }
+
+  async fetchSuggestions(query: string) {
+    const suggestions = await this.pipedApi.suggestions.getSuggestions(query)
+
+    return suggestions
+  }
 }
