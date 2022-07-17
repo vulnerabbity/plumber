@@ -28,5 +28,11 @@ export const cssConstants = {
     large: 18,
   },
 
+  transition: {
+    fast: 0.2,
+    medium: 0.3,
+    slow: 0.4,
+  },
+
   baseFontSize: 18,
 } as const
