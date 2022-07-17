@@ -1,20 +1,8 @@
-export interface VideoUiFieldsGeneratorProps {
-  views: number
-  durationInSeconds: number
-}
-
 export class VideoUiFieldsGenerator {
-  generate(props: VideoUiFieldsGeneratorProps) {
-    return {
-      fancyViews: this.generateFancyViewsText(props),
-      fancyTime: this.generateFancyTimeText(props),
-    }
-  }
-
-  // generates time like 22:11:23, 02:22
-  private generateFancyTimeText({
-    durationInSeconds,
-  }: VideoUiFieldsGeneratorProps) {
+  /**
+   * generates time like 22:11:23, 02:22
+   */
+  generateFancyTime({ durationInSeconds }: { durationInSeconds: number }) {
     const date = new Date(durationInSeconds * 1000)
 
     const seconds = date.getUTCSeconds()
@@ -33,9 +21,7 @@ export class VideoUiFieldsGenerator {
     return result
   }
 
-  private generateFancyViewsText({
-    views,
-  }: VideoUiFieldsGeneratorProps): string {
+  generateFancyViews({ views }: { views: number }): string {
     const THOUSAND = 1_000
     const MILLION = 1_000_000
     const BILLION = 1_000_000_000
@@ -75,5 +61,3 @@ export class VideoUiFieldsGenerator {
     return number.toFixed(2)
   }
 }
-
-export const VideoUiFieldsGeneratorInstance = new VideoUiFieldsGenerator()

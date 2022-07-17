@@ -4,7 +4,7 @@ import {
   cssConstants,
   defineAspectRatio,
 } from "../../lib/jss/jss"
-import { VideoUiFieldsGeneratorInstance } from "../../lib/video-ui-fields-generator/VideoUiFieldsGenerator"
+import { VideoUiFieldsGenerator } from "../../lib/video-ui-fields-generator/VideoUiFieldsGenerator"
 import { ImageFallbackComponent } from "../image-fallback/image-fallback"
 
 const youtubeImageAspectRatio = 1.78
@@ -24,8 +24,10 @@ export function VideoItemVerticalComponent(
   const { video } = props
   const styles = useStyles()
 
-  const { fancyViews, fancyTime } = VideoUiFieldsGeneratorInstance.generate({
-    ...video,
+  const fancyGenerator = new VideoUiFieldsGenerator()
+  const fancyViews = fancyGenerator.generateFancyViews({ views: video.views })
+  const fancyTime = fancyGenerator.generateFancyTime({
+    durationInSeconds: video.durationInSeconds,
   })
 
   return (

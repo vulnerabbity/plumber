@@ -1,39 +1,33 @@
-import { MOCK_VIDEO } from "../mock/Video"
-import {
-  VideoUiFieldsGenerator,
-  VideoUiFieldsGeneratorInstance,
-} from "./VideoUiFieldsGenerator"
+import { VideoUiFieldsGenerator } from "./VideoUiFieldsGenerator"
 
 describe(VideoUiFieldsGenerator.name, () => {
+  const generator = new VideoUiFieldsGenerator()
+
   it("should generate text for views", () => {
     const thousand = 1_000
     const million = 1_000_000
     const billion = 1_000_000_000
 
-    const billionsResult = VideoUiFieldsGeneratorInstance.generate({
-      ...MOCK_VIDEO,
+    const billionFancyViews = generator.generateFancyViews({
       views: billion * 2.226,
     })
-    expect(billionsResult.fancyViews).toBe("2.23B")
+    expect(billionFancyViews).toBe("2.23B")
 
-    const millionsResult = VideoUiFieldsGeneratorInstance.generate({
-      ...MOCK_VIDEO,
+    const millionsFancyViews = generator.generateFancyViews({
       views: million * 2.226,
     })
-    expect(millionsResult.fancyViews).toBe("2.23M")
+    expect(millionsFancyViews).toBe("2.23M")
 
-    const thousandsResult = VideoUiFieldsGeneratorInstance.generate({
-      ...MOCK_VIDEO,
+    const thousandsFancyViews = generator.generateFancyViews({
       views: thousand * 2.226,
     })
-    expect(thousandsResult.fancyViews).toBe("2.23K")
+    expect(thousandsFancyViews).toBe("2.23K")
 
-    const lessThanThousandsResult = VideoUiFieldsGeneratorInstance.generate({
-      ...MOCK_VIDEO,
+    const lessThanThousandsFancyViews = generator.generateFancyViews({
       views: 444,
     })
 
-    expect(lessThanThousandsResult.fancyViews).toBe("444")
+    expect(lessThanThousandsFancyViews).toBe("444")
   })
 
   it("should generate time", () => {
@@ -52,8 +46,7 @@ describe(VideoUiFieldsGenerator.name, () => {
     }
 
     function expectTime(seconds: number, expectation: string) {
-      const { fancyTime } = VideoUiFieldsGeneratorInstance.generate({
-        ...MOCK_VIDEO,
+      const fancyTime = generator.generateFancyTime({
         durationInSeconds: seconds,
       })
 
