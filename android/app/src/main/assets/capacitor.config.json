@@ -1,0 +1,6 @@
+{
+	"appId": "io.ionic.starter",
+	"appName": "plumber",
+	"webDir": "build",
+	"bundledWebRuntime": false
+}
