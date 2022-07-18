@@ -130,8 +130,8 @@ const useStyles = createUseStyles({
   },
 
   ionRange: {
-    "--bar-height": "15rem",
-    "--knob-size": "50rem",
+    "--bar-height": "8rem",
+    "--knob-size": "35rem",
     "--bar-border-radius": "100rem",
   },
 
