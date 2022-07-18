@@ -28,6 +28,11 @@ export function VideoPlayerComponent(props: VideoPlayerComponentProps) {
     ReactDom.render(
       <VideoBottomBar
         onFullscreen={() => toggleFullscreen(player)}
+        getDuration={() => player.duration()}
+        getCurrentTime={() => player.currentTime()}
+        onCurrentTimeChange={change => {
+          player.currentTime(change.currentTime)
+        }}
       ></VideoBottomBar>,
       document.querySelector(`#${id}`),
     )
