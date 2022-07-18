@@ -114,7 +114,11 @@ const useStyles = createUseStyles({
     alignItems: "center",
   },
 
-  ionRange: {},
+  ionRange: {
+    "--bar-height": "15rem",
+    "--knob-size": "50rem",
+    "--bar-border-radius": "100rem",
+  },
 
   time: {
     fontSize: cssConstants.baseFontSize * 1.1,
