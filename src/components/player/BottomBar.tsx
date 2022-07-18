@@ -3,21 +3,14 @@ import { createUseStyles } from "react-jss"
 import { scanSharp } from "ionicons/icons"
 import { useEffect, useState } from "react"
 import { cssConstants } from "../../lib/jss/jss"
+import { VideoJsPlayer } from "video.js"
 
 export interface VideoBottomBarProps {
-  onFullscreen?: () => any
-  onCurrentTimeChange?: (change: { currentTime: number }) => any
-  getCurrentTime?: () => number
-  getDuration?: () => number
+  player: VideoJsPlayer
 }
 
 export function VideoBottomBar(props: VideoBottomBarProps) {
-  const {
-    getDuration = () => 0,
-    getCurrentTime = () => 0,
-    onFullscreen = () => {},
-    onCurrentTimeChange = () => {},
-  } = props
+  const { player } = props
 
   const [duration, setDuration] = useState(0)
   const [currentTime, setCurrentTime] = useState(0)
@@ -42,14 +35,14 @@ export function VideoBottomBar(props: VideoBottomBarProps) {
   }
 
   function updateDuration() {
-    const duration = getDuration()
+    const duration = player.duration()
     if (isNaN(duration) === false) {
       setDuration(duration)
     }
   }
 
   function updateCurrentTime() {
-    const currentTime = getCurrentTime()
+    const currentTime = player.currentTime()
 
     if (isNaN(currentTime) === false) {
       setCurrentTime(currentTime)
@@ -76,7 +69,7 @@ export function VideoBottomBar(props: VideoBottomBarProps) {
               event.target.classList.contains("range-pressed")
 
             if (isChangedByUser) {
-              onCurrentTimeChange({ currentTime: newCurrentTime })
+              player.currentTime(newCurrentTime)
             }
           }}
         ></IonRange>
@@ -89,7 +82,7 @@ export function VideoBottomBar(props: VideoBottomBarProps) {
           className={styles.ionicIconButton}
           color="none"
           onClick={() => {
-            onFullscreen()
+            toggleFullscreen(player)
           }}
         >
           <IonIcon slot="icon-only" icon={scanSharp}></IonIcon>
@@ -133,3 +126,13 @@ const useStyles = createUseStyles({
     "--padding-end": "0px",
   },
 })
+
+function toggleFullscreen(player: VideoJsPlayer) {
+  const isFullscreen = player.isFullscreen()
+
+  if (isFullscreen) {
+    player.exitFullscreen()
+  } else {
+    player.requestFullscreen()
+  }
+}

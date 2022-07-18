@@ -13,7 +13,6 @@ export interface VideoPlayerComponentProps {}
 export function VideoPlayerComponent(props: VideoPlayerComponentProps) {
   const options: VideoJsPlayerOptions = {
     sources,
-    muted: true,
     controlBar: false,
     fluid: true,
   }
@@ -26,14 +25,7 @@ export function VideoPlayerComponent(props: VideoPlayerComponentProps) {
     addVideoJsNode({ className, id, player })
 
     ReactDom.render(
-      <VideoBottomBar
-        onFullscreen={() => toggleFullscreen(player)}
-        getDuration={() => player.duration()}
-        getCurrentTime={() => player.currentTime()}
-        onCurrentTimeChange={change => {
-          player.currentTime(change.currentTime)
-        }}
-      ></VideoBottomBar>,
+      <VideoBottomBar player={player}></VideoBottomBar>,
       document.querySelector(`#${id}`),
     )
   }
@@ -61,16 +53,6 @@ const useStyles = createUseStyles({
     maxWidth: 1200,
   },
 })
-
-function toggleFullscreen(player: VideoJsPlayer) {
-  const isFullscreen = player.isFullscreen()
-
-  if (isFullscreen) {
-    player.exitFullscreen()
-  } else {
-    player.requestFullscreen()
-  }
-}
 
 function addTopBar(player: VideoJsPlayer) {
   const id = "plumber-video-top-bar"
