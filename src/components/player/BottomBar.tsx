@@ -1,3 +1,4 @@
+/* eslint-disable no-unreachable */
 import { IonButton, IonIcon, IonRange } from "@ionic/react"
 import { createUseStyles } from "react-jss"
 import { scanSharp } from "ionicons/icons"
@@ -14,6 +15,7 @@ export function VideoBottomBar(props: VideoBottomBarProps) {
 
   const [duration, setDuration] = useState(0)
   const [currentTime, setCurrentTime] = useState(0)
+  const progress = (currentTime / duration) * 100
 
   const styles = useStyles()
 
@@ -47,6 +49,12 @@ export function VideoBottomBar(props: VideoBottomBarProps) {
     }
   }
 
+  function setPlayerTime(time: number) {
+    setCurrentTime(time)
+
+    player.currentTime(time)
+  }
+
   function pauseWhileSeeking() {
     player.pause()
     const play = () => {
@@ -66,8 +74,15 @@ export function VideoBottomBar(props: VideoBottomBarProps) {
       <div className={`${styles.videoBottomBarItem} ${styles.spacer}`}>
         <IonRange
           className={styles.ionRange}
-          value={(player.currentTime() / player.duration()) * 100}
-          onMouseDown={pauseWhileSeeking}
+          value={progress}
+          onMouseDown={event => {
+            pauseWhileSeeking()
+
+            const newProgress = (event.currentTarget.value as number) / 100
+            const newCurrentTime = newProgress * duration
+
+            setPlayerTime(newCurrentTime)
+          }}
           onIonChange={event => {
             const newProgress = (event.detail.value as number) / 100
             const newCurrentTime = newProgress * duration
@@ -77,7 +92,7 @@ export function VideoBottomBar(props: VideoBottomBarProps) {
               event.target.classList.contains("range-pressed")
 
             if (isChangedByUser) {
-              player.currentTime(newCurrentTime)
+              setPlayerTime(newCurrentTime)
             }
           }}
         ></IonRange>
