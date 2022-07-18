@@ -5,6 +5,7 @@ import { scanSharp } from "ionicons/icons"
 import { useEffect, useState } from "react"
 import { cssConstants } from "../../lib/jss/jss"
 import { VideoJsPlayer } from "video.js"
+import { OrientationsManager } from "../../lib/native/OrientationManager"
 
 export interface VideoBottomBarProps {
   player: VideoJsPlayer
@@ -158,8 +159,11 @@ function toggleFullscreen(player: VideoJsPlayer) {
   const isFullscreen = player.isFullscreen()
 
   if (isFullscreen) {
+    OrientationsManager.lockToPortrait()
     player.exitFullscreen()
   } else {
+    // LAND
+    OrientationsManager.lockToLandscape()
     player.requestFullscreen()
   }
 }
