@@ -15,8 +15,6 @@ export function VideoBottomBar(props: VideoBottomBarProps) {
   const [duration, setDuration] = useState(0)
   const [currentTime, setCurrentTime] = useState(0)
 
-  const progress = (currentTime / duration) * 100
-
   const styles = useStyles()
 
   useEffect(() => {
@@ -24,7 +22,7 @@ export function VideoBottomBar(props: VideoBottomBarProps) {
 
     const interval = setInterval(() => {
       sync()
-    }, 1000)
+    }, 600)
 
     return () => clearInterval(interval)
   }, [])
@@ -49,6 +47,15 @@ export function VideoBottomBar(props: VideoBottomBarProps) {
     }
   }
 
+  function pauseWhileSeeking() {
+    player.pause()
+    const play = () => {
+      player.play()
+      document.removeEventListener("mouseup", play)
+    }
+    document.addEventListener("mouseup", play)
+  }
+
   return (
     <div className={styles.videoBottomBar}>
       {/* LEFT */}
@@ -59,7 +66,8 @@ export function VideoBottomBar(props: VideoBottomBarProps) {
       <div className={`${styles.videoBottomBarItem} ${styles.spacer}`}>
         <IonRange
           className={styles.ionRange}
-          value={progress}
+          value={(player.currentTime() / player.duration()) * 100}
+          onMouseDown={pauseWhileSeeking}
           onIonChange={event => {
             const newProgress = (event.detail.value as number) / 100
             const newCurrentTime = newProgress * duration
