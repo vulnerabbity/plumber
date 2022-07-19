@@ -1,7 +1,7 @@
 /* eslint-disable no-unreachable */
 import { IonButton, IonIcon, IonRange } from "@ionic/react"
 import { createUseStyles } from "react-jss"
-import { scanSharp } from "ionicons/icons"
+import { scanSharp as fullscreenIcon } from "ionicons/icons"
 import { useEffect, useState } from "react"
 import { cssConstants } from "../../lib/jss/jss"
 import { VideoJsPlayer } from "video.js"
@@ -108,8 +108,9 @@ export function VideoBottomBar(props: VideoBottomBarProps) {
           onClick={() => {
             toggleFullscreen(player)
           }}
+          fill="clear"
         >
-          <IonIcon slot="icon-only" icon={scanSharp}></IonIcon>
+          <IonIcon slot="icon-only" icon={fullscreenIcon}></IonIcon>
         </IonButton>
       </div>
     </div>
@@ -149,6 +150,7 @@ const useStyles = createUseStyles({
   ionicIconButton: {
     height: 60,
     width: 60,
+    fontSize: 30,
     // make button square by removing sides padding
     "--padding-start": "0px",
     "--padding-end": "0px",
