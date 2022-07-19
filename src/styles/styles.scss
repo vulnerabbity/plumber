@@ -26,10 +26,10 @@ img {
 }
 
 .app-wrapper {
-  overflow-y: scroll;
+  overflow-y: unset;
   min-height: 100vh;
 
   ion-router-outlet {
-    overflow: unset;
+    overflow-y: scroll;
   }
 }
