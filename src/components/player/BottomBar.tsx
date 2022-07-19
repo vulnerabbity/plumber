@@ -25,7 +25,7 @@ export function VideoBottomBar(props: VideoBottomBarProps) {
 
     const interval = setInterval(() => {
       sync()
-    }, 600)
+    }, 50)
 
     return () => clearInterval(interval)
   }, [])
