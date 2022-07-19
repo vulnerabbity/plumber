@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 import videojs, { VideoJsPlayer, VideoJsPlayerOptions } from "video.js"
 import "video.js/dist/video-js.css"
 
@@ -6,16 +6,25 @@ import "video.js/dist/video-js.css"
 // Disable video.js spy features
 window.HELP_IMPROVE_VIDEOJS = false
 
-type PlayerCallback = (player: VideoJsPlayer) => any
+export type OnReadyCallback = (response: OnReadyResponse) => any
+export type OnReadyResponse = {
+  player: VideoJsPlayer
+
+  /**
+   * When reloaded in developing mode may be initialized many times
+   */
+  isFirstInit: boolean
+}
 
 export interface VideoJsComponentProps {
   thumbnailUrl: string
   videoJsOptions?: VideoJsPlayerOptions
-  onReady?: PlayerCallback
+  onReady?: OnReadyCallback
 }
 
 export function VideoJsComponent(props: VideoJsComponentProps) {
   const { videoJsOptions = {}, thumbnailUrl } = props
+  const [isFirstInit, setIsFirstInit] = useState(true)
 
   const videoRef = useRef<HTMLVideoElement | null>(null)
   const playerRef = useRef(null)
@@ -23,7 +32,7 @@ export function VideoJsComponent(props: VideoJsComponentProps) {
 
   function onPlayerLoad(player: VideoJsPlayer) {
     if (props.onReady) {
-      props.onReady(player)
+      props.onReady({ player, isFirstInit })
     }
   }
 
@@ -43,6 +52,10 @@ export function VideoJsComponent(props: VideoJsComponentProps) {
     player = videojs(videoElement, videoJsOptions, () => {
       onPlayerLoad(player!)
     })
+
+    if (isFirstInit) {
+      setIsFirstInit(false)
+    }
   }
 
   useEffect(() => {
