@@ -1,0 +1,34 @@
+.video-top-bar {
+  transition: opacity 0.3s;
+  opacity: 0;
+
+  position: relative;
+}
+
+.video-bottom-bar {
+  transition: opacity 0.3s;
+  opacity: 0;
+
+  position: absolute;
+  bottom: 0;
+
+  width: 100%;
+}
+
+.vjs-user-active.vjs-has-started {
+  .video-top-bar {
+    opacity: 1;
+  }
+  .video-bottom-bar {
+    opacity: 1;
+  }
+}
+
+.vjs-ended {
+  .video-top-bar {
+    opacity: 1;
+  }
+  .video-bottom-bar {
+    opacity: 1;
+  }
+}
