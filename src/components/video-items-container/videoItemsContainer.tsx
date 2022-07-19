@@ -5,15 +5,17 @@ import { VideoItemVerticalComponent } from "../video-item-vertical/video-item-ve
 
 export interface VideoItemsContainerComponentProps {
   videos: IVideo[]
+  className?: string
 }
 
 export function VideoItemsContainerComponent({
   videos,
+  className,
 }: VideoItemsContainerComponentProps) {
   const styles = useStyles()
 
   return (
-    <div className={styles.host}>
+    <div className={`${styles.videoItemsContainer} ${className}`}>
       <div className={styles.itemsContainer}>
         {videos.map(video => {
           return (
@@ -30,10 +32,7 @@ export function VideoItemsContainerComponent({
 }
 
 const useStyles = createUseStyles({
-  host: {
-    // display: "flex",
-    // justifyContent: "center",
-  },
+  videoItemsContainer: {},
   itemsContainer: {
     display: "grid",
     // Prefer 300rem for item but make 100vw on screen.width < 300
