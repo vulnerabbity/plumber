@@ -4,12 +4,11 @@ import { ChannelDetailsComponent } from "../components/channel-details/ChannelDe
 import { VideoPlayerComponent } from "../components/player/player"
 import { SubscribeButton } from "../components/subscribe-button/SubscribeButton"
 import { VideoDetailsComponent } from "../components/video-details/VideoDetails"
+import { VideoSectionsComponent } from "../components/video-sections/VideoSections"
 import { adaptDetailedVideoToChannel } from "../lib/adapters/DetailedVideoToChannel"
-import { adaptPipedApiStreamsToVideoSources } from "../lib/adapters/PipedApiToVideoSource"
 import { ApiExtractor } from "../lib/api-extractor/ApiExtractor"
 import { Fetcher } from "../lib/fetcher/Fetcher"
 import { IDetailedVideo } from "../lib/interface/DetailedVideo"
-import { VideoPlayerSource } from "../lib/interface/VideoPlayerSource"
 
 const fetcher = new Fetcher()
 
@@ -45,6 +44,10 @@ export function WatchPage() {
     return detailedVideo?.dislikes
   }
 
+  function getDescription() {
+    return detailedVideo?.description
+  }
+
   return (
     <div className={styles.watchVideoContainer}>
       {detailedVideo && (
@@ -76,6 +79,12 @@ export function WatchPage() {
           ></SubscribeButton>
         </div>
       )}
+      <div>
+        <VideoSectionsComponent
+          description={getDescription()}
+          videos={detailedVideo?.relatedVideos ?? []}
+        ></VideoSectionsComponent>
+      </div>
     </div>
   )
 }
@@ -85,7 +94,6 @@ const useStyles = createUseStyles({
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
-    maxWidth: 1200,
     margin: "0 auto",
     padding: "0 10rem",
   },
