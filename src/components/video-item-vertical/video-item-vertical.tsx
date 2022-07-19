@@ -43,6 +43,7 @@ export function VideoItemVerticalComponent(
       <Link to={video.videoUrl}>
         <div className={styles.thumbnail}>
           <ImageFallbackComponent
+            className={styles.thumbnailImage}
             fallbackHeight={imageHeight}
             src={video.thumbnailUrl}
             alt={video.title}
@@ -81,8 +82,12 @@ const useStyles = createUseStyles({
   title: {
     fontSize: cssConstants.baseFontSize * 1.1,
     fontWeight: "bold",
+    textAlign: "left",
   },
 
+  thumbnailImage: {
+    height: imageHeight,
+  },
   thumbnail: {
     position: "relative",
     borderRadius: cssConstants.borderRadius.medium,

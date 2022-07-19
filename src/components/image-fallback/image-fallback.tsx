@@ -3,13 +3,14 @@ import { createUseStyles } from "react-jss"
 import { accessRootStore } from "../../store/store"
 
 export interface ImageFallbackComponentProps {
+  className?: string
   src?: string
   alt?: string
   fallbackHeight: number
 }
 
 export function ImageFallbackComponent(props: ImageFallbackComponentProps) {
-  const { alt, src, fallbackHeight } = props
+  const { alt, src, fallbackHeight, className } = props
   const {
     state: { theme },
   } = accessRootStore()
@@ -40,9 +41,13 @@ export function ImageFallbackComponent(props: ImageFallbackComponentProps) {
   }
 
   return (
-    <div className={styles.fallbackImageRoot}>
-      <div style={{ height, backgroundColor: theme.contentColor }}>
+    <div className={`${styles.fallbackImageRoot} ${className}`}>
+      <div
+        className={styles.fallbackBg}
+        style={{ backgroundColor: theme.contentColor }}
+      >
         <img
+          className={styles.image}
           src={src}
           alt={alt}
           ref={imageRef}
@@ -56,6 +61,14 @@ export function ImageFallbackComponent(props: ImageFallbackComponentProps) {
 }
 
 const useStyles = createUseStyles({
+  image: {
+    height: "100% !important",
+  },
+
+  fallbackBg: {
+    height: "100%",
+  },
+
   fallbackImageRoot: {
     display: "block",
     position: "relative",
