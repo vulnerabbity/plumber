@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { createUseStyles } from "react-jss"
 import { ChannelDetailsComponent } from "../components/channel-details/ChannelDetails"
 import { VideoPlayerComponent } from "../components/player/player"
+import { SubscribeButton } from "../components/subscribe-button/SubscribeButton"
 import { VideoDetailsComponent } from "../components/video-details/VideoDetails"
 import { adaptDetailedVideoToChannel } from "../lib/adapters/DetailedVideoToChannel"
 import { adaptPipedApiStreamsToVideoSources } from "../lib/adapters/PipedApiToVideoSource"
@@ -66,9 +67,14 @@ export function WatchPage() {
         title={getTitle()}
       ></VideoDetailsComponent>
       {detailedVideo && (
-        <ChannelDetailsComponent
-          channel={adaptDetailedVideoToChannel(detailedVideo)}
-        ></ChannelDetailsComponent>
+        <div className={styles.channelSection}>
+          <ChannelDetailsComponent
+            channel={adaptDetailedVideoToChannel(detailedVideo)}
+          ></ChannelDetailsComponent>
+          <SubscribeButton
+            channel={adaptDetailedVideoToChannel(detailedVideo)}
+          ></SubscribeButton>
+        </div>
       )}
     </div>
   )
@@ -82,6 +88,11 @@ const useStyles = createUseStyles({
     maxWidth: 1200,
     margin: "0 auto",
     padding: "0 10rem",
+  },
+  channelSection: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
   },
 })
 
