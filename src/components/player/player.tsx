@@ -6,15 +6,21 @@ import ReactDom from "react-dom"
 import { VideoTopBar } from "./TopBar"
 import { VideoBottomBar } from "./BottomBar"
 import { createUseStyles } from "react-jss"
-import { useRef } from "react"
+import { VideoPlayerSource } from "../../lib/interface/VideoPlayerSource"
+import { adaptVideoPlayerToVideoJsSources } from "../../lib/adapters/VideoPlayerToVideoJsSource"
 
-export interface VideoPlayerComponentProps {}
+export interface VideoPlayerComponentProps {
+  sources: VideoPlayerSource[]
+  thumbnailUrl: string
+}
 
 export function VideoPlayerComponent(props: VideoPlayerComponentProps) {
+  const { sources, thumbnailUrl } = props
+
   const options: VideoJsPlayerOptions = {
-    sources,
+    sources: adaptVideoPlayerToVideoJsSources(sources),
     controlBar: false,
-    fluid: true,
+    height: 600,
   }
 
   const styles = useStyles()
@@ -49,9 +55,7 @@ export function VideoPlayerComponent(props: VideoPlayerComponentProps) {
 }
 
 const useStyles = createUseStyles({
-  plumberPlayer: {
-    maxWidth: 1200,
-  },
+  plumberPlayer: {},
 })
 
 function addTopBar(player: VideoJsPlayer) {
