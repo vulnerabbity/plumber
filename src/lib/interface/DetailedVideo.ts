@@ -16,6 +16,8 @@ export interface IDetailedVideo {
 
   channelName: string
 
+  channelAvatar: string
+
   subscribersCount: number
 
   isSubscribersHidden: boolean

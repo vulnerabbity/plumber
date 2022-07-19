@@ -24,6 +24,8 @@ export class PipedApiToDetailedVideoAdapter implements IDetailedVideo {
 
   channelName: string
 
+  channelAvatar: string
+
   subscribersCount: number
 
   isSubscribersHidden: boolean
@@ -72,6 +74,7 @@ export class PipedApiToDetailedVideoAdapter implements IDetailedVideo {
       uploader,
       uploaderSubscriberCount,
       uploaderUrl,
+      uploaderAvatar,
       uploaderVerified,
       videoStreams,
       views,
@@ -93,6 +96,7 @@ export class PipedApiToDetailedVideoAdapter implements IDetailedVideo {
     this.subscribersCount = uploaderSubscriberCount
     this.isSubscribersHidden = uploaderSubscriberCount === -1
     this.channelUrl = uploaderUrl
+    this.channelAvatar = uploaderAvatar
     this.isChannelVerified = uploaderVerified
     this.videoStreams = videoStreams
     this.views = views
