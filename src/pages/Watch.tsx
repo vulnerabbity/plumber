@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react"
 import { createUseStyles } from "react-jss"
+import { ChannelDetailsComponent } from "../components/channel-details/ChannelDetails"
 import { VideoPlayerComponent } from "../components/player/player"
 import { VideoDetailsComponent } from "../components/video-details/VideoDetails"
+import { adaptDetailedVideoToChannel } from "../lib/adapters/DetailedVideoToChannel"
 import { adaptPipedApiStreamsToVideoSources } from "../lib/adapters/PipedApiToVideoSource"
 import { ApiExtractor } from "../lib/api-extractor/ApiExtractor"
 import { Fetcher } from "../lib/fetcher/Fetcher"
@@ -14,6 +16,7 @@ export function WatchPage() {
   const [detailedVideo, setDetailedVideo] = useState<IDetailedVideo | null>(
     null,
   )
+
   const styles = useStyles()
 
   useEffect(() => {
@@ -62,6 +65,11 @@ export function WatchPage() {
         dislikes={getDislikes()}
         title={getTitle()}
       ></VideoDetailsComponent>
+      {detailedVideo && (
+        <ChannelDetailsComponent
+          channel={adaptDetailedVideoToChannel(detailedVideo)}
+        ></ChannelDetailsComponent>
+      )}
     </div>
   )
 }
