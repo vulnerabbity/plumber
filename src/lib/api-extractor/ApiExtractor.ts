@@ -7,7 +7,7 @@ class ApiExtractor {
     const startPattern = "/channel/"
     const hasId = url.length > startPattern.length
 
-    const isValidUrl = url.startsWith(startPattern) && hasId
+    const isValidUrl = url.includes(startPattern) && hasId
 
     if (isValidUrl === false) {
       throw new ApiExtractorInvalidUrlError(url)
@@ -28,7 +28,8 @@ class ApiExtractor {
   extractVideoIdFromVideoUrl(url: string) {
     const startPattern = "/watch?v="
     const hasId = url.length > startPattern.length
-    const isValidUrl = url.startsWith(startPattern) && hasId
+    const isValidUrl = url.includes(startPattern) && hasId
+
     if (isValidUrl === false) {
       throw new ApiExtractorInvalidUrlError(url)
     }
