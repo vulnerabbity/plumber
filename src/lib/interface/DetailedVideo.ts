@@ -26,6 +26,8 @@ export interface IDetailedVideo {
 
   channelUrl: string
 
+  channelId: string
+
   isChannelVerified: boolean
 
   relatedVideos: IVideo[]
