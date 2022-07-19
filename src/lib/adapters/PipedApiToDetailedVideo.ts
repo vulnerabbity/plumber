@@ -5,6 +5,7 @@ import {
   SubtitlesItem,
   VideoStream,
 } from "piped-api"
+import { ApiExtractor } from "../api-extractor/ApiExtractor"
 import { IDetailedVideo } from "../interface/DetailedVideo"
 import { IVideo } from "../interface/Video"
 import { adaptPipedVideos } from "./piped-api-video-adapter"
@@ -33,6 +34,8 @@ export class PipedApiToDetailedVideoAdapter implements IDetailedVideo {
   epochSecondsSinceUpload: number
 
   channelUrl: string
+
+  channelId: string
 
   isChannelVerified: boolean
 
@@ -100,6 +103,10 @@ export class PipedApiToDetailedVideoAdapter implements IDetailedVideo {
     this.isChannelVerified = uploaderVerified
     this.videoStreams = videoStreams
     this.views = views
+
+    this.channelId = ApiExtractor.extractChannelIdFromUploaderUrl(
+      this.channelUrl,
+    )
 
     this.hls = hls
     this.dash = dash
