@@ -39,4 +39,8 @@ export interface IDetailedVideo {
   videoProvider: string
 
   isLivestream: boolean
+
+  hls: string | null
+
+  dash: string | null
 }

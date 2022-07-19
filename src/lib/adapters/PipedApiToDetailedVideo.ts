@@ -48,6 +48,10 @@ export class PipedApiToDetailedVideoAdapter implements IDetailedVideo {
 
   isLivestream: boolean
 
+  hls: string | null
+
+  dash: string | null
+
   constructor(pipedVideo: PipedDetailedVideo) {
     const {
       audioStreams,
@@ -92,6 +96,9 @@ export class PipedApiToDetailedVideoAdapter implements IDetailedVideo {
     this.isChannelVerified = uploaderVerified
     this.videoStreams = videoStreams
     this.views = views
+
+    this.hls = hls
+    this.dash = dash
   }
 }
 
