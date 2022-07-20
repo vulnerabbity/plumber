@@ -18,7 +18,12 @@ export function VideoSectionsComponent(props: VideoSectionsComponentProps) {
     <section className={`${className}`}>
       <IonSlides>
         <IonSlide>
-          <div className={styles.description}>{description}</div>
+          <span className={`${styles.description}`}>
+            <span
+              className="swiper-no-swiping"
+              dangerouslySetInnerHTML={{ __html: description }}
+            ></span>
+          </span>
         </IonSlide>
         <IonSlide>
           <VideoItemsContainerComponent
@@ -36,6 +41,10 @@ const useStyles = createUseStyles({
     whiteSpace: "pre-wrap",
     textAlign: "left",
     width: "90%",
+    "& a": {
+      color: "blue",
+      maxWidth: "fit-content",
+    },
   },
   videosGrid: {
     width: "90%",
