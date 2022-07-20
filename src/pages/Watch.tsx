@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { createUseStyles } from "react-jss"
 import { ChannelDetailsComponent } from "../components/channel-details/ChannelDetails"
 import { VideoPlayerComponent } from "../components/player/player"
@@ -9,6 +9,7 @@ import { adaptDetailedVideoToChannel } from "../lib/adapters/DetailedVideoToChan
 import { ApiExtractor } from "../lib/api-extractor/ApiExtractor"
 import { Fetcher } from "../lib/fetcher/Fetcher"
 import { IDetailedVideo } from "../lib/interface/DetailedVideo"
+import { useLocation } from "react-router-dom"
 
 const fetcher = new Fetcher()
 
@@ -16,17 +17,32 @@ export function WatchPage() {
   const [detailedVideo, setDetailedVideo] = useState<IDetailedVideo | null>(
     null,
   )
+  const searchParams = new URLSearchParams(useLocation().search)
+  const videoId = searchParams.get("v")
 
   const styles = useStyles()
 
   useEffect(() => {
-    fetchVideo().then(video => {
-      if (!video) {
-        return
-      }
-      setDetailedVideo(video)
-    })
-  }, [])
+    scrollTop()
+    onNewVideoIdReceived()
+  }, [videoId])
+
+  async function onNewVideoIdReceived() {
+    if (!videoId) {
+      return
+    }
+
+    const video = await fetcher.fetchDetailedVideo(videoId)
+
+    // destroy previous player
+    setDetailedVideo(null)
+
+    if (!video) {
+      return
+    }
+
+    setDetailedVideo(video)
+  }
 
   function getViews() {
     return detailedVideo?.views
@@ -46,6 +62,10 @@ export function WatchPage() {
 
   function getDescription() {
     return detailedVideo?.description
+  }
+
+  function scrollTop() {
+    window.scrollTo(0, 0)
   }
 
   return (
@@ -96,6 +116,7 @@ const useStyles = createUseStyles({
     justifyContent: "center",
     margin: "0 auto",
     padding: "0 10rem",
+    overflow: "unset",
   },
   channelSection: {
     display: "flex",
@@ -103,11 +124,3 @@ const useStyles = createUseStyles({
     justifyContent: "space-between",
   },
 })
-
-async function fetchVideo() {
-  const href = window.location.href
-  const videoId = ApiExtractor.extractVideoIdFromVideoUrl(href)
-
-  const video = await fetcher.fetchDetailedVideo(videoId)
-  return video
-}
