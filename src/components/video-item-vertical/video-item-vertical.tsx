@@ -53,12 +53,11 @@ export function VideoItemVerticalComponent(
       </Link>
       <div className={styles.videoInfo}>
         <div className={styles.avatarColumn}>
-          <div className={styles.channelAvatar}>
-            <ImageFallbackComponent
-              src={video.channelAvatarUrl ?? ""}
-              fallbackHeight={avatarSize}
-            ></ImageFallbackComponent>
-          </div>
+          <ImageFallbackComponent
+            className={styles.channelAvatar}
+            src={video.channelAvatarUrl ?? ""}
+            fallbackHeight={avatarSize}
+          ></ImageFallbackComponent>
         </div>
         <div className={styles.textContainer}>
           <p className={styles.title}>{video.title}</p>
@@ -104,12 +103,15 @@ const useStyles = createUseStyles({
   },
   channelAvatar: {
     width: avatarSize,
+    height: avatarSize,
+
     display: "inline-block",
     borderRadius: "50%",
     overflow: "hidden",
   },
   avatarColumn: {
-    paddingRight: cssConstants.padding.small,
+    width: avatarSize,
+    marginRight: cssConstants.padding.small,
   },
   duration: {
     position: "absolute",
