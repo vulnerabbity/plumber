@@ -12,7 +12,6 @@ export interface VideoSectionsComponentProps {
 export function VideoSectionsComponent(props: VideoSectionsComponentProps) {
   const { description = "", videos = [], className = "" } = props
   const styles = useStyles()
-  console.log({ description })
 
   return (
     <section className={`${className}`}>
