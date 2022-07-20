@@ -5,12 +5,17 @@ import * as serviceWorkerRegistration from "./serviceWorkerRegistration"
 import reportWebVitals from "./reportWebVitals"
 import { RootStoreProvider } from "./store/store"
 import { AppJssProvider } from "./lib/jss/jss-provider"
+import { ThemeProvider } from "./components/theme-provider/ThemeProvider"
+
+import "./styles/styles.scss"
 
 ReactDOM.render(
   <React.StrictMode>
     <RootStoreProvider>
       <AppJssProvider>
-        <App />
+        <ThemeProvider>
+          <App></App>
+        </ThemeProvider>
       </AppJssProvider>
     </RootStoreProvider>
   </React.StrictMode>,

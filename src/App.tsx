@@ -19,27 +19,23 @@ import "@ionic/react/css/text-transformation.css"
 import "@ionic/react/css/flex-utils.css"
 import "@ionic/react/css/display.css"
 
-import "./styles/styles.scss"
 import { WatchPage } from "./pages/Watch"
-import { ThemeProvider } from "./components/theme-provider/ThemeProvider"
 
 setupIonicReact()
 
 function App() {
   return (
     <IonApp className="app-wrapper">
-      <ThemeProvider>
-        <IonReactRouter>
-          <IonRouterOutlet>
-            <Route exact path="/">
-              <Home />
-            </Route>
-            <Route exact path="/watch">
-              <WatchPage />
-            </Route>
-          </IonRouterOutlet>
-        </IonReactRouter>
-      </ThemeProvider>
+      <IonReactRouter>
+        <IonRouterOutlet>
+          <Route exact path="/">
+            <Home />
+          </Route>
+          <Route exact path="/watch">
+            <WatchPage />
+          </Route>
+        </IonRouterOutlet>
+      </IonReactRouter>
     </IonApp>
   )
 }
