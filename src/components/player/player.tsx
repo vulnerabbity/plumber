@@ -20,7 +20,7 @@ export function VideoPlayerComponent(props: VideoPlayerComponentProps) {
   const options: VideoJsPlayerOptions = {
     sources: adaptVideoPlayerToVideoJsSources(sources),
     controlBar: false,
-    height: 600,
+    fluid: true,
   }
 
   const styles = useStyles()
