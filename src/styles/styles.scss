@@ -25,11 +25,35 @@ img {
   color: transparent;
 }
 
+// Hack used to move scroll container from inner levels to body to use js scrolling
+// Works like "height: fit-content" but in more browsers
+@mixin heightAsContent {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+}
+
+body {
+  overflow-y: auto;
+
+  position: relative;
+
+  @include heightAsContent();
+}
+
+#root {
+  position: relative;
+
+  @include heightAsContent();
+}
+
 .app-wrapper {
-  overflow-y: unset;
-  min-height: 100vh;
+  position: relative;
+
+  @include heightAsContent();
 
   ion-router-outlet {
-    overflow-y: scroll;
+    position: relative;
+    @include heightAsContent();
   }
 }
